@@ -5,20 +5,20 @@ public class StopService {
         this.client = client;
     }
 
-    public String fetchStop() throws Exception {
+    public String fetchStop(String stopId) throws Exception {
         String graphql =
                 """
                 {
-                    stop(id: "LINKKI:207725") {
+                    stop(id: "%s") {
                       name
-                      stoptimesWithoutPatterns(numberOfDepartures: 5) {
+                      stoptimesWithoutPatterns(numberOfDepartures: 1) {
                          serviceDay
                          realtimeDeparture
                          scheduledDeparture
                       }
                     }
                 }
-               """;
+               """.formatted(stopId);
         return client.postStopQuery(graphql);
     }
 }
